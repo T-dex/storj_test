@@ -6,13 +6,11 @@ import Switch from '@material-ui/core/Switch';
 class UserList extends Component{
     constructor(props){
         super(props)
+        this.handleChange=this.handleChange.bind(this);
     }
     handleChange(event){
-        const checked=!event.target.checked;
-        console.log(checked, event.target.checked);
-        const test ="this is getting passed along"
-        console.log(this.props);
-        
+        const checked=!event.target.checked;        const test ="this is getting passed along"
+        this.props.displayUser(checked)        
        //change checked of user to !checked
     }
     render(){

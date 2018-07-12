@@ -1,9 +1,6 @@
 body {
   display: grid; }
 
-.App {
-  background-color: blue; }
-
 .main {
   height: 100vh;
   display: grid;
