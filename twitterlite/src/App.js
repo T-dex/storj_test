@@ -19,8 +19,16 @@ class App extends Component {
     })
   }
 
-  displayUser(test){
-    console.log(test);
+  displayUser(userData){
+    const userchecked= Object.keys(this.state.tweet).map(key=>this.state.tweet[key])
+    const user=userData.checkedUser;
+    const checked=userData.checked
+    //Update State from here
+    
+  }
+  changeUserMessage(newMessage){
+  console.log(newMessage, "app");
+  
   }
   render() {
 const mappedState=Object.keys(this.state.tweet).map(key=>this.state.tweet[key])
@@ -31,7 +39,7 @@ const mappedState=Object.keys(this.state.tweet).map(key=>this.state.tweet[key])
         <header className="App-header"/>
         <div className="main"> 
           <UserList users={mappedState} displayUser={this.displayUser.bind(this)} />
-          <UserMess/>
+          <UserMess tweet={this.state.tweet} changeUserMessage={this.changeUserMessage.bind(this)}/>
         </div>
       </div>
     );

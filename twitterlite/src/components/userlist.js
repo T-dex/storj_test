@@ -9,8 +9,12 @@ class UserList extends Component{
         this.handleChange=this.handleChange.bind(this);
     }
     handleChange(event){
-        const checked=!event.target.checked;        const test ="this is getting passed along"
-        this.props.displayUser(checked)        
+        const checked=event.target.checked; 
+        const checkedUser= event.target.value;       
+        const test ="this is getting passed along";
+        console.log(test, checked);
+        const userData= {checked, checkedUser}
+        this.props.displayUser(userData)        
        //change checked of user to !checked
     }
     render(){

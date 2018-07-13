@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Input from '@material-ui/core/Input'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
-import { log } from 'util';
+
 
 class UserMess extends Component{
     constructor(props){
@@ -17,6 +17,8 @@ class UserMess extends Component{
     }
  onClick(){
      console.log(this.state.messageBox);
+     const newMessage=this.state.messageBox
+     this.props.changeUserMessage(newMessage)
  }
     render(){
         return(
