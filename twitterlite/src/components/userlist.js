@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import { Link } from 'react-router-dom' 
 
 class UserList extends Component{
     constructor(props){
@@ -10,9 +11,7 @@ class UserList extends Component{
     }
     handleChange(event){
         const checked=event.target.checked; 
-        const checkedUser= event.target.value;       
-        const test ="this is getting passed along";
-        console.log(test, checked);
+        const checkedUser= event.target.value;            
         const userData= {checked, checkedUser}
         this.props.displayUser(userData)        
        //change checked of user to !checked
@@ -26,6 +25,8 @@ class UserList extends Component{
                 key={key}
                 checked={this.props.users[key].active}
                 onChange={this.handleChange}
+                component={Link}
+                to={this.props.users[key].userName}
                 value={this.props.users[key].userName}
                 />
             }label={this.props.users[key].userName} />
