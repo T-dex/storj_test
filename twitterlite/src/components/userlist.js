@@ -3,6 +3,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { Link } from 'react-router-dom' 
+import { log } from 'util';
 
 class UserList extends Component{
     constructor(props){
@@ -17,7 +18,7 @@ class UserList extends Component{
        //change checked of user to !checked
     }
     render(){
-        const userName=Object.keys(this.props.users).map(key=>{
+        const userName=Object.keys(this.props.users).map(key=>{ 
             return <FormControlLabel
             key={key}
             control={
@@ -35,7 +36,7 @@ class UserList extends Component{
         
         return(
             <div className="User">
-                <FormGroup column>
+                <FormGroup column="true">
                   {userName}
                 </FormGroup>
             </div>

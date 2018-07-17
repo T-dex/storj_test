@@ -6,16 +6,15 @@ import UserList from './components/userlist'
 import UserMess from './components/usermess'
 import uuid from 'uuid'
 
+const rootRef=firebase.database().ref()
+const refDb=rootRef.child('tweets')
 class App extends Component {
    state={
-      tweet:{}
+      tweet:{},
     }
   
   componentDidMount(){
-    const rootRef=firebase.database().ref()
-    const refDb=rootRef.child('tweets')
     refDb.on('value', snap=>{
-      console.log(snap.val());
       this.setState({tweet:snap.val().user})
     })
   }
@@ -27,7 +26,11 @@ class App extends Component {
     
     const userchecked= Object.keys(this.state.tweet).map(key=>{
     let activeUser =this.state.tweet[key]
+    let test= activeUser.active
     
+    
+
+
     if(activeUser.userName==user){
       const updatedActive={
         ...activeUser,
@@ -39,11 +42,15 @@ class App extends Component {
         [key]:updatedActive}
       }))
       console.log(updatedActive, "after");
+      const userID=key
+      const active=!activeUser.active
+      console.log( typeof active);
+      refDb.child('user/' + userID+"/active").set(active)
+      
       
     }
-    
     })
-    //Update State from here
+  
   
     
     
@@ -62,6 +69,10 @@ class App extends Component {
           [key]:updatedMessage
         }
       }))
+      console.log(typeof newMessage, updatedMessage);
+      
+      const userID=key;
+      refDb.child('user/' + userID+"/message").set(newMessage)
       
     }})
     
