@@ -1,5 +1,6 @@
 body{
     display:grid;
+    background-color:grey;
 }
 
 .App{
@@ -18,10 +19,11 @@ body{
     border: 3px solid black;
     padding-left:.5vh;
     padding-top: 5%;
+    background-color: white;
+    
 }
 .Center{
-    display: grid;
-    align-content: center;
+  
 }
 .list{
     list-style: none;

@@ -1,5 +1,6 @@
 body {
-  display: grid; }
+  display: grid;
+  background-color: grey; }
 
 .main {
   height: 100vh;
@@ -12,11 +13,8 @@ body {
   font-size: 32px;
   border: 3px solid black;
   padding-left: .5vh;
-  padding-top: 5%; }
-
-.Center {
-  display: grid;
-  align-content: center; }
+  padding-top: 5%;
+  background-color: white; }
 
 .list {
   list-style: none; }
