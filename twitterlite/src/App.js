@@ -36,15 +36,33 @@ class App extends Component {
         ...activeUser,
         active:checked
       }
+      console.log();
+      
+  const inactive=Object.keys(this.state.tweet).filter(key=>{ if(this.state.tweet[key]!=activeUser){
+     let inactiveUser=this.state.tweet[key]
+     inactiveUser.active=false;
+     this.setState(prevState=>({
+       tweet:{
+         ...prevState.tweet,
+         [key]:inactiveUser
+       }
+     }))
+     return inactive
+     }}
+      )
+      console.log(inactive,"inactive");
+      
       this.setState(prevState=>({
       tweet:{ 
          ...prevState.tweet,
         [key]:updatedActive}
       }))
-      console.log(updatedActive, "after");
+      console.log(this.state);
+      
       const userID=key
-      const active=!activeUser.active
-      console.log( typeof active);
+      const active=activeUser.active
+      console.log(active);
+      
       refDb.child('user/' + userID+"/active").set(active)
       
       

@@ -14,6 +14,8 @@ class UserList extends Component{
         const checked=event.target.checked; 
         const checkedUser= event.target.value;            
         const userData= {checked, checkedUser}
+        console.log("clicked");
+        
         this.props.displayUser(userData)        
        //change checked of user to !checked
     }

@@ -24,11 +24,9 @@ class UserMess extends Component{
     render(){
         const message=Object.keys(this.props.tweet).map(key=>{
             if(this.props.tweet[key].active===true){
-                console.log(this.props.tweet[key])
                 return  <li className="list">{this.props.tweet[key].userName} says  {this.props.tweet[key].message}</li>
             }
         })
-        console.log(message);
         
             
         
