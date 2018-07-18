@@ -26,52 +26,16 @@ class App extends Component {
     
     const userchecked= Object.keys(this.state.tweet).map(key=>{
     let activeUser =this.state.tweet[key]
-    let test= activeUser.active
     
-    
-
-
-    if(activeUser.userName==user){
-      const updatedActive={
-        ...activeUser,
-        active:checked
-      }
-      console.log();
-      
-  const inactive=Object.keys(this.state.tweet).filter(key=>{ if(this.state.tweet[key]!=activeUser){
-     let inactiveUser=this.state.tweet[key]
-     inactiveUser.active=false;
-     this.setState(prevState=>({
-       tweet:{
-         ...prevState.tweet,
-         [key]:inactiveUser
-       }
-     }))
-     return inactive
-     }}
-      )
-      console.log(inactive,"inactive");
-      
-      this.setState(prevState=>({
-      tweet:{ 
-         ...prevState.tweet,
-        [key]:updatedActive}
-      }))
-      console.log(this.state);
       
       const userID=key
       const active=activeUser.active
       console.log(active);
-      
       refDb.child('user/' + userID+"/active").set(active)
       
       
-    }
     })
   
-  
-    
-    
   }
   changeUserMessage(newMessage){
     const user= Object.keys(this.state.tweet).map(key=>{

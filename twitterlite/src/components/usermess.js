@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Input from '@material-ui/core/Input'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
+import { log } from 'util';
 
 
 
@@ -22,10 +23,13 @@ class UserMess extends Component{
      this.setState({messageBox:""})
  }
     render(){
+        const test= Object.keys(this.props.tweet).every(key=>this.props.tweet[key].active==false)
         const message=Object.keys(this.props.tweet).map(key=>{
             if(this.props.tweet[key].active===true){
                 return  <li className="list">{this.props.tweet[key].userName} says  {this.props.tweet[key].message}</li>
-            }
+            }else if(test===true) {
+            return <li className="list">{this.props.tweet[key].userName} says  {this.props.tweet[key].message}</li>}
+            
         })
         
             
