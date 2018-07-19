@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import firebase from './firebase/firebase';
 import './styles/app.css';
-import {BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom'
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import {BrowserRouter as Router, Route, Link, Switch, Redirect} from 'react-router-dom'
 import UserMess from './components/usermess'
 import uuid from 'uuid'
 
@@ -62,8 +59,11 @@ const userName=Object.keys(this.state.tweet).map(key=>{
               <li><Link to='/'>Home</Link></li>
               {userName}
             </div>
+           <div className="User">
+           <Route path="/" render={(props)=><UserMess {...props} tweet={this.state.tweet} changeUserMessage={this.changeUserMessage.bind(this)}/>}/>
+          </div>
+
         </div>
-        
       </div>
       </Router>
     );
