@@ -32,20 +32,31 @@ class UserMess extends Component{
  }
     render(){
         browserbar=this.props.history.location.pathname
-        const user=Object.keys(this.props.tweet).map(key=>this.props.tweet[key].user)
-        const userName=Object.keys(this.props.tweet).map(key=>this.props.tweet[key].userName)
-        const newcheck=browserbar.replace(/\//g, "")
-        console.log(user, userName, browserbar, newcheck);
         let message;
-       
-        if(browserbar===user||newcheck==userName){            
-            message=(Object.keys(this.props.tweet).map(key=>{
-                    return  <li className="list">{this.props.tweet[key].userName} says  {this.props.tweet[key].message}</li>  
-                }
-            ))
-        }else{
-           message="test"
-        }
+        const user=Object.keys(this.props.tweet).map(key=>this.props.tweet[key].user)
+        const newcheck=browserbar.replace(/\//g, "").replace(/\s+/g,'')
+        console.log(newcheck);
+        
+        const userName=Object.keys(this.props.tweet).map(key=>{
+            if((this.props.tweet[key].userName).replace(/\s+/g,'')==newcheck){
+                console.log("true");
+                message=( 
+                 <li className="list">{this.props.tweet[key].userName} says  {this.props.tweet[key].message}</li>  )
+            }else if(newcheck==""){
+                message=( Object.keys(this.props.tweet).map(key=> <li className="list">{this.props.tweet[key].userName} says  {this.props.tweet[key].message}</li>  ))
+                
+            }
+        })
+        console.log(userName, message);
+        
+        // if(browserbar===user||newcheck==userName){            
+        //     message=(Object.keys(this.props.tweet).map(key=>{
+        //             return  <li className="list">{this.props.tweet[key].userName} says  {this.props.tweet[key].message}</li>  
+        //         }
+        //     ))
+        // }else{
+        //    message="test"
+        // }
         
         
        
