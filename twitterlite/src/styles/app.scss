@@ -1,3 +1,5 @@
+
+
 body{
     display:grid;
     background-color:grey;
@@ -36,4 +38,10 @@ body{
     background-color: lightgrey;
     width:25vh;
     height:3vh;
+}
+.list{
+    border: 1px solid black;
+    padding:1vh;
+    margin:1vh;
+    background-color: lightgrey;
 }
