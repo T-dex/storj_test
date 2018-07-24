@@ -22,18 +22,16 @@ class UserMess extends Component{
         this.loadinUpdate=this.loadinUpdate.bind(this)
         this.loadHome=this.loadHome.bind(this)
     }
-    componentDidMount(){
-        browserbar=this.props.history.location.pathname  
-    }
-   
-   
+    //Basic change of message box 
     handleChange=(event)=>{
         this.setState({messageBox:event.target.value})
     }
+    //Update page and state if browserbar contains home address and displays all users messages
     loadHome(check){
         this.setState({user:null})
         this.props.loadHome(check)
     }
+    //This function renders if the browser contains any User name
     loadinUpdate(){
         let user;
         const load=Object.keys(this.props.tweet).map(key=>{
@@ -55,9 +53,8 @@ class UserMess extends Component{
         }) 
     }})  
     this.props.firstUpdate(user);
-     
     }
-    
+// Handles data rendering when user switch is clicked. Pushes user name to browser bar
     handleSwitch=(event)=>{  
         this.setState({user:event.target.value})
          if(event.target.checked){
@@ -75,9 +72,9 @@ class UserMess extends Component{
                 }
             }) 
         }
-        this.props.updateUser(usercheck)  
+        this.props.updateUser(usercheck)
     }
-    
+// function for pushing data up to main component and resetting message box
  onClick(){
      const checked=Object.keys(this.props.tweet).filter(key=>{
          if(this.props.tweet[key].userName==this.state.user){
@@ -89,55 +86,58 @@ class UserMess extends Component{
      this.props.changeUserMessage(updateMessData)
      this.setState({messageBox:""})
  }
-    render(){        
-        browserbar=this.props.history.location.pathname
+    render(){  
+        const {tweet}=this.props      
         let message;
+        browserbar=this.props.history.location.pathname
         newcheck=browserbar.replace(/\//g, "").replace(/\s+/g,'') 
-        if(browserbar!="/"&&(Object.keys(this.props.tweet).length)!=0){
-            const check=Object.keys(this.props.tweet).filter(key=>(newcheck==(this.props.tweet[key].userName).replace(/\s+/g,'')))
-            const idcheck=this.props.tweet[check]
-            let userName=this.props.tweet[check].userName
+        if(browserbar!="/"&&(Object.keys(tweet).length)!=0){
+            const check=Object.keys(tweet).filter(key=>(newcheck==(tweet[key].userName).replace(/\s+/g,'')))
+            const idcheck=tweet[check]
+            let userName=tweet[check].userName
             
             if(idcheck.checked==true){
-                console.log(idcheck);
+                console.log(idcheck.user);
                 
             }
             else{
                 this.loadinUpdate(check);
             }  
         }
-        if(browserbar==="/"&&(Object.keys(this.props.tweet).length)!=0){
-            const check=Object.keys(this.props.tweet).filter(key=>((this.props.tweet[key].checked)===true))
-            const idcheck=this.props.tweet[check]
+        //checking browser bar to render user data if accessed through home component
+        if(browserbar==="/"&&(Object.keys(tweet).length)!=0){
+            const check=Object.keys(tweet).filter(key=>((tweet[key].checked)===true))
+            const idcheck=tweet[check]
             if(this.state.user!=null){
                 this.loadHome(check)
             }
         }
-        const user=Object.keys(this.props.tweet).map(key=>this.props.tweet[key].user)
-        const userName=Object.keys(this.props.tweet).map(key=>{
-            if((this.props.tweet[key].userName).replace(/\s+/g,'')==newcheck){
+        //renders user messages on middle component
+        const user=Object.keys(tweet).map(key=>tweet[key].user)
+        const userName=Object.keys(tweet).map(key=>{
+            if((tweet[key].userName).replace(/\s+/g,'')==newcheck){
                 message=( 
                  <li key={key} className="list">{this.props.tweet[key].userName} says  {this.props.tweet[key].message}</li>  )
             }else if(newcheck==""){
                 message=( Object.keys(this.props.tweet).map(key=> <li key={key} className="list">{this.props.tweet[key].userName} says  {this.props.tweet[key].message}</li>  ))
-                
+ 
             }
         })
-        const updateUsermessage=Object.keys(this.props.tweet).map(key=>{ 
+        const updateUsermessage=Object.keys(tweet).map(key=>{ 
             return <FormControlLabel
             key={key}
             control={
                 <Switch
                 key={key}
-                checked={this.props.tweet[key].checked}
+                checked={tweet[key].checked}
                 onChange={this.handleSwitch}
-                value={this.props.tweet[key].userName}
+                value={tweet[key].userName}
                 />
-            }label={this.props.tweet[key].userName} />
+            }label={tweet[key].userName} />
         })
-        let routerbarCheck=Object.keys(this.props.tweet).filter(key=>{
-            if(newcheck==(this.props.tweet[key].userName).replace(/\s+/g,'')){
-            usercheck=this.props.tweet[key]
+        let routerbarCheck=Object.keys(tweet).filter(key=>{
+            if(newcheck==(tweet[key].userName).replace(/\s+/g,'')){
+            usercheck=tweet[key]
             return [key]
             
             }
@@ -150,7 +150,7 @@ class UserMess extends Component{
                 </FormControl>)
                 }
         return(
-            <div className="User Center">
+            <div className="User">
             <div className="input">
                 {messagebox}
                 <FormGroup row>
@@ -158,7 +158,7 @@ class UserMess extends Component{
                 </FormGroup>
             </div>
             <div>
-                <ul>{message}</ul>
+                <ul className="message">{message}</ul>
             </div>
             </div>
         )

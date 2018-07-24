@@ -15,13 +15,13 @@ class App extends Component {
    state={
       tweet:{},
     }
-  
+  //pull and load data from firebase.io
   componentDidMount(){
     refDb.on('value', snap=>{
       this.setState({tweet:snap.val().user})
     })
   }
-
+//changes user status on backend which updates switch display on Usermess
   updateUserStatus(usercheck){
     let newUserString= usercheck.toString()
     
@@ -40,6 +40,7 @@ class App extends Component {
           [key]:updateUserStatus
         }
         }))
+        console.log(updateUserStatus);
       }else{
         let updatedUser=this.state.tweet[key]
         const updateUserStatus={
@@ -56,6 +57,7 @@ class App extends Component {
     }
     ) 
   }
+  //first function to run to check if browser contains user name and changes state as such
   firstUpdate(user){
     let newUserString= user.toString()
     const userFirstUpdate=Object.keys(this.state.tweet).filter(key=>{
@@ -87,6 +89,7 @@ class App extends Component {
       }
     })
   }
+  // Loads all users if path="/"
   loadHome(check){
     
     let newUserString= check.toString()
@@ -109,6 +112,7 @@ class App extends Component {
     })
     
   }
+  //Updated user message on back end firebase
   changeUserMessage(updateMessData){
     
     const user= Object.keys(this.state.tweet).map(key=>{
@@ -133,22 +137,20 @@ class App extends Component {
   
   }
   render() {
-   
+   const {tweet} =this.state
     
-  const mappedState=Object.keys(this.state.tweet).map(key=>this.state.tweet[key])
-  const userName=Object.keys(this.state.tweet).map(key=>{ 
-            return <li key={key}><Link to={this.state.tweet[key].userName}>{this.state.tweet[key].userName}</Link></li>
+  const mappedState=Object.keys(tweet).map(key=>tweet[key])
+  const userName=Object.keys(tweet).map(key=>{ 
+            return <li key={key}><Link to={tweet[key].userName}>{tweet[key].userName}</Link></li>
         })      
 
     return (
       <Router>
       <div className="App">
-        <header className="App-header"/>
-       
        <div>
-          <AppBar position="static" color="default">
-        <Toolbar>
-          <Typography variant="title" color="inherit">
+          <AppBar position="static" className="appbar">
+        <Toolbar className="appbar">
+          <Typography className="headerbar" variant="title" >
             Storj Twitter Lite
           </Typography>
         </Toolbar>
@@ -159,9 +161,9 @@ class App extends Component {
               <li><Link to='/'>Home</Link></li>
               {userName}
             </div>
-           <div className="User">
+           <div className="User Center">
            <Switch>
-            <Route path="/" render={(props)=><UserMess {...props} tweet={this.state.tweet} updateUser={this.updateUserStatus.bind(this)} firstUpdate={this.firstUpdate.bind(this)} loadHome={this.loadHome.bind(this)} changeUserMessage={this.changeUserMessage.bind(this)}/>}/>
+            <Route path="/" render={(props)=><UserMess  {...props} tweet={this.state.tweet} updateUser={this.updateUserStatus.bind(this)} firstUpdate={this.firstUpdate.bind(this)} loadHome={this.loadHome.bind(this)} changeUserMessage={this.changeUserMessage.bind(this)}/>}/>
            </Switch>
           </div>
 
